@@ -1,0 +1,25 @@
+name: Preço Ninja
+
+on:
+  workflow_dispatch:
+  schedule:
+   - cron: "*/5 * * * *"
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Executar bot
+        run: python bot.py
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHANNEL_USERNAME: ${{ vars.CHANNEL_USERNAME }}
